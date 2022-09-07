@@ -1,4 +1,9 @@
 <?php
+session_start();
+if( !isset($_SESSION["login"]) ) {
+    header("Location: login.php");
+    exit;
+}
 require "functions.php";
 
 $produk = query("SELECT * FROM produk");
@@ -15,7 +20,7 @@ $produk = query("SELECT * FROM produk");
 </head>
 <body>
 
-    
+<a href="logout.php">Logout</a>    
 
     <h1>List Barang</h1>
 
