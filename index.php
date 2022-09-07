@@ -24,6 +24,16 @@ $produk = query("SELECT * FROM produk LIMIT $awalData, $jumlahDataPerHalaman");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manajemen Barang Penjualan</title>
+    <style>
+        .loader {
+            width: 100px;
+            position: absolute;
+            top: 130px;
+            z-index: -1;
+            left: 300px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -32,10 +42,14 @@ $produk = query("SELECT * FROM produk LIMIT $awalData, $jumlahDataPerHalaman");
     <h1>List Barang</h1>
 
     <a href="tambah.php">Tambah Barang Penjualan</a>
+    <br> <br>
 
     <form action="" method="post">
-        <input type="text" name="keyword" size="40" autofocus placeholder="masukkan keyword pencarian.." autocomplete="off">
-        <button type="submit" name="cari">Cari!</button>
+        <input type="text" name="keyword" size="40" autofocus placeholder="masukkan keyword pencarian.." autocomplete="off" id="keyword">
+        <button type="submit" name="cari" id="tombol-cari">Cari!</button>
+
+        <img src="img/loader.gif" class="loader">
+
     </form>
     <br>
 
@@ -59,7 +73,7 @@ $produk = query("SELECT * FROM produk LIMIT $awalData, $jumlahDataPerHalaman");
 
 
     <br>
-
+    <div id="container">
     <table border="1" cellspacing="0" cellpadding="8">
         <tr>
             <th>No</th>
@@ -88,6 +102,10 @@ $produk = query("SELECT * FROM produk LIMIT $awalData, $jumlahDataPerHalaman");
         <?php endforeach; ?>
         
     </table>
+    </div>
+
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/script.js"></script>
     
 </body>
 </html>
