@@ -6,14 +6,37 @@ if( !isset($_SESSION["login"]) ) {
 }
 require "functions.php";
 
+    $jumlahDataPerHalaman = 10;
+    $jumlahData = count(query("SELECT * FROM produk"));
+    $jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman);
+    $halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
+    $awalData = ( $jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
 
-$jumlahDataPerHalaman = 10;
-$jumlahData = count(query("SELECT * FROM produk"));
-$jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman);
-$halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
-$awalData = ( $jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
 
-$produk = query("SELECT * FROM produk LIMIT $awalData, $jumlahDataPerHalaman");
+if( isset($_GET["filterharga"]) ) {
+
+    $minimal = $_GET["minimal"];
+    $maksimal = $_GET["maksimal"];
+     
+    $outputProduk = query("SELECT * FROM produk WHERE harga BETWEEN $minimal AND $maksimal");
+
+
+
+    
+    
+} else {
+
+    
+
+    $outputProduk = query("SELECT * FROM produk LIMIT $awalData, $jumlahDataPerHalaman");
+
+
+}
+
+
+
+
+$produk = $outputProduk
 
 ?>
 
@@ -52,6 +75,23 @@ $produk = query("SELECT * FROM produk LIMIT $awalData, $jumlahDataPerHalaman");
 
     </form>
     <br>
+
+    <form action="" method="get">
+
+        <ul>
+            <li>
+                <label for="minimal">Harga Minimal : </label>
+                <input type="number" name="minimal" id="minimal">
+            </li>
+            <li>
+                <label for="maksimal">Harga Maksimal : </label>
+                <input type="number" name="maksimal" id="maksimal">
+            </li>
+            <li>
+                <button type="submit" name="filterharga">Filter</button>
+            </li>
+        </ul>
+    </form>
 
    <!-- navigasi -->
 
